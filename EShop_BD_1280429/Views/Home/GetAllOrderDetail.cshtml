@@ -1,0 +1,67 @@
+﻿@model IEnumerable<EShop_BD_1280429.ViewModel.OrderUserVM>
+<br />
+<br />
+<br />
+<div class="container mt-5">
+    <h2>Order List</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Bill)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().InvoiceDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().InvoiceId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Payment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().UserId)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bill)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InvoiceDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InvoiceId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @if (item.Status == 1)
+                        {
+                            <span class="btn btn-success">Approve</span>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("ConfirmOrder", "Home", new { InvoiceId = item.InvoiceId })" class="btn btn-info">Pending</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

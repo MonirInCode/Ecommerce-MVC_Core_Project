@@ -1,0 +1,35 @@
+﻿@model EShop_BD_1280429.Models.User
+<br />
+<br />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Login</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "email" })
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "password" })
+                            </div>
+                            <br />
+                            <div class="form-group text-center">
+                                <input type="submit" value="Login" class="btn btn-primary">
+                            </div>
+                            @if (TempData["msg"] != null)
+                            {
+                                <h3 class="text-danger text-center">@TempData["msg"]</h3>
+                            }
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

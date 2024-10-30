@@ -1,0 +1,29 @@
+﻿@model EShop_BD_1280429.Models.Product
+<br />
+<br />
+<br />
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image">
+                <img src="~/Uploads/@Model.Image" class="img-fluid" alt="@Model.Name">
+            </div>
+        </div>
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                <input type="hidden" name="id" value="@Model.ProductId" />
+                <h3 class="product-name">@Model.Name</h3>
+                <p class="product-description">@Model.Description</p>
+                <p class="product-price">Rs. <strong>@Model.Unit</strong></p>
+
+                <div class="form-group">
+                    <label for="qty">Quantity:</label>
+                    <input type="number" min="1" max="10" name="qty" class="form-control w-25" value="1" />
+                </div>
+                <br />
+                <button type="submit" class="btn btn-warning">Add to Cart</button>
+            }
+        </div>
+    </div>
+</div>

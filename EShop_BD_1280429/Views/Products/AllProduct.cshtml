@@ -1,0 +1,111 @@
+﻿@using PagedList.Mvc
+@using PagedList
+
+
+@model IPagedList<EShop_BD_1280429.Models.Product>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "AllProduct";
+}
+<br />
+<br />
+<br />
+<br />
+<h2>AllProduct</h2>
+
+
+
+
+<div class="product-section mt-5 mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <form method="get" action="@Url.Action("AllProduct", "Home")" class="d-flex">
+                    <input type="text" name="searchQuery" class="form-control" placeholder="Search Here" value="@Request.QueryString["searchQuery"]" />
+                    <button type="submit" class="btn btn-primary ml-2">Search</button>
+                </form>
+            </div>
+            <div class="col-lg-3 mb-3">
+                @using (Html.BeginForm("AllProduct", "Products", FormMethod.Get, new { id = "categoryForm" }))
+                {
+                    <div class="form-group">
+                        <label>Select Category:</label>
+                        @Html.DropDownList("categoryId", new SelectList(ViewBag.Categories, "CategoryId", "Name", ViewBag.SelectedCategory), "All Categories", new { id = "categoryFilter", onchange = "this.form.submit();", @class = "form-control" })
+                    </div>
+                }
+            </div>
+            <div class="col-lg-3 mb-3">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="sortDropdown">
+                        @Html.ActionLink("Name A-Z", "AllProduct", new { sortOrder = ViewBag.NameAscSortParam }, new { @class = "dropdown-item", id = "sortByNameAsc" })
+                        @Html.ActionLink("Name Z-A", "AllProduct", new { sortOrder = ViewBag.NameSortParam }, new { @class = "dropdown-item", id = "sortByNameDesc" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Price Low-High", "AllProduct", new { sortOrder = ViewBag.PriceAscSortParam }, new { @class = "dropdown-item", id = "sortByPriceAsc" })
+                        @Html.ActionLink("Price High-Low", "AllProduct", new { sortOrder = ViewBag.PriceSortParam }, new { @class = "dropdown-item", id = "sortByPriceDesc" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row product-lists">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="single-product-item text-center">
+                        <div class="product-image" style="position: relative;">
+                            <a href="@Url.Action("SingleProduct", "Home", new { id = item.ProductId })"><img src="~/Uploads/@item.Image" class="img-fluid" alt="@item.Name"style="height:310px; width:270px"></a>
+                            @*if (item.Discount > 0)
+                            {
+                                <div class="discount-percent" style="position: absolute; top: 10px; right: 10px; background: red; color: white; padding: 5px; border-radius: 5px;">
+                                    item.Discount% off
+                                </div>
+                            }*@
+                        </div>
+                        <h3>@item.Name</h3>
+                        <h4>@item.Unit</h4>
+                        <a href="@Url.Action("AddDirectToCart", "Home", new { id = item.ProductId })" class="btn btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="pagination-wrap">
+                    @Html.PagedListPager(Model, page => Url.Action("AllProduct", new { page, searchQuery = Request.QueryString["searchQuery"], sortBy = ViewBag.SortBy, sortOrder = ViewBag.SortOrder }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropdown-item').on('click', function (e) {
+                e.preventDefault();
+                var selectedSortText = $(this).text();
+                $('#sortDropdown').text(selectedSortText);
+                window.location.href = $(this).attr('href');
+            });
+        });
+
+
+        document.getElementById('categoryFilter').onchange = function () {
+            document.getElementById('categoryForm').submit();
+        };</script>
+}

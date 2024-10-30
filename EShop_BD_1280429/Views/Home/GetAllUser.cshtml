@@ -1,0 +1,43 @@
+﻿@model IEnumerable<EShop_BD_1280429.Models.User>
+<br />
+<br />
+<div class="container mt-5">
+    <h2>User List</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().RoleType)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleType)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

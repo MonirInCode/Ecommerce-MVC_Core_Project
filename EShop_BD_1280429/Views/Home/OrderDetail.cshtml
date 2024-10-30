@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EShop_BD_1280429.ViewModel.OrderUserVM>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2 class="text-center my-4">Order Detail</h2>
+
+<div class="container">
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Bill)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Payment)</th>
+                <th>@Html.DisplayNameFor(model => model.First().InvoiceDate)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Status)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Bill)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Payment)</td>
+                    <td>@Html.DisplayFor(modelItem => item.InvoiceDate)</td>
+                    <td>
+                        @if (item.Status == 1)
+                        {
+                            <span class="btn btn-success">Approved</span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-success">Pending</span>
+                        }
+                    </td>
+                    <td>
+                       
+                        <a href="@Url.Action("Invoice", "Home", new { id = item.InvoiceId })" class="btn btn-primary"
+                           onclick="openPrintWindow('@Url.Action("Invoice", "Home", new { id = item.InvoiceId })'); return false;">
+                            Print
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        function openPrintWindow(url) {
+            window.open(url, '_blank');
+        }</script>
+}
+

@@ -1,0 +1,30 @@
+﻿@model EShop_BD_1280429.Models.Category
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    <div class="container mt-5">
+        <h2 class="mb-4">Add Category</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="Name">Name:</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter category name" })
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Add Category" class="btn btn-primary">
+                </div>
+            </div>
+        </div>
+        @if (TempData["msg"] != null)
+        {
+            <div class="alert alert-danger mt-3">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+}
